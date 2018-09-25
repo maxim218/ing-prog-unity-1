@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PrintChetn : MonoBehaviour {
+	void Start () {
+		int a = 5;
+		int b = 20;
+
+		for (int i = a; i <= b; i++) {
+			if (i % 2 == 0) {
+				Debug.Log (i);
+			}
+		}
+	}
+}
+
+
