@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HeroCode : MonoBehaviour {
+
+	private bool moveLeft = false;
+	private bool moveRight = false;
+
+	private float speed = 5.3f;
+
+	// Use this for initialization
+	void Start () {
+		Debug.Log ("It is Cube");
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+		if (Input.GetKeyDown (KeyCode.A))
+			moveLeft = true;
+		if (Input.GetKeyDown (KeyCode.D)) moveRight = true;
+
+		if (Input.GetKeyUp (KeyCode.A)) moveLeft = false;
+		if (Input.GetKeyUp (KeyCode.D)) moveRight = false;
+
+		if (moveLeft == true) {
+			if (transform.position.x > -5) {
+				transform.Translate (-1 * speed * Time.deltaTime, 0, 0);
+			}
+		}
+
+		if (moveRight == true) {
+			if (transform.position.x < 5) {
+				transform.Translate (speed * Time.deltaTime, 0, 0);
+			}
+		}
+
+	}
+}
+
