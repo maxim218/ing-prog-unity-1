@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TorelControl : MonoBehaviour {
+	private bool left = false;
+	private bool right = false;
+
+	public GameObject bulletPrefab;
+
+	void Start () {
+		
+	}
+
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.A)) left = true;
+		if (Input.GetKeyDown (KeyCode.D)) right = true;
+
+		if (Input.GetKeyUp (KeyCode.A)) left = false;
+		if (Input.GetKeyUp (KeyCode.D)) right = false;
+
+		float speed = 120.0f;
+
+		if (left == true) transform.Rotate (0, (-1) * speed * Time.deltaTime ,0);
+		if (right == true) transform.Rotate (0, speed * Time.deltaTime ,0);
+
+		if (Input.GetMouseButtonDown (0)) {
+			GameObject b = Instantiate(bulletPrefab) as GameObject;
+			b.transform.position = transform.TransformPoint(Vector3.forward * 8.0f);
+
+			Vector3 pos = transform.position - b.transform.position;
+			Quaternion rotation = Quaternion.LookRotation(pos);
+			b.transform.rotation = rotation;
+			b.transform.Rotate(90, 0, 0);
+
+			Rigidbody script = b.GetComponent<Rigidbody>();
+			script.AddForce (transform.forward * 100000);
+		}
+	}
+}
+
