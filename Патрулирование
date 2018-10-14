@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MoveScript : MonoBehaviour {
+	private float speed = 4.0f;
+	private float s = 10.0f;
+	private float d = 0.0f;
+
+	private int k = 0;
+	public int maxK = 3;
+
+	void Update () {
+		if (k == maxK) {
+			return;
+		}
+
+		float t = Time.deltaTime;
+		if (d < s) {
+			transform.Translate (speed * t, 0, 0);
+			d = d + speed * t;
+		} else {
+			transform.Rotate (0, 180, 0);
+			d = 0;
+			k += 1;
+		}
+	}
+}
+
+
