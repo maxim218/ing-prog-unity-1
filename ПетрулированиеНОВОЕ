@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PatrulScript : MonoBehaviour {
+	public GameObject p1;
+	public GameObject p2;
+	public GameObject p3;
+
+	public float speed = 0.0f;
+	private int state;
+	public GameObject gen;
+
+	private float time = 0.0f;
+
+	void Start () {
+		state = 1;
+	}
+	
+
+	void Update () {
+		time += Time.deltaTime;
+
+		if (time > 3.0f) {
+			GameObject caps = Instantiate (gen) as GameObject;
+			caps.transform.position = transform.position;
+			time = 0.0f;
+		}
+
+		if (state == 1) {
+			transform.position = Vector3.MoveTowards (transform.position, p1.transform.position, speed * Time.deltaTime);
+			float d = Vector3.Distance (transform.position, p1.transform.position);
+			if (d < 2.0f) {
+				state = 2;
+			}
+		}
+
+		if (state == 2) {
+			transform.position = Vector3.MoveTowards (transform.position, p2.transform.position, speed * Time.deltaTime);
+			float d = Vector3.Distance (transform.position, p2.transform.position);
+			if (d < 2.0f) {
+				state = 3;
+			}
+		}
+
+		if (state == 3) {
+			transform.position = Vector3.MoveTowards (transform.position, p3.transform.position, speed * Time.deltaTime);
+			float d = Vector3.Distance (transform.position, p3.transform.position);
+			if (d < 2.0f) {
+				state = 1;
+			}
+		}
+	}
+}
+
+
+
