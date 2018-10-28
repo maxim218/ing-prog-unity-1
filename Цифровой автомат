@@ -1,0 +1,48 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HeroScript : MonoBehaviour {
+	public BonusScript [] arr;
+	private int state;
+	private GameObject bonus;
+
+	void Start () {
+		state = 1;
+	}
+
+	void Update () {
+		arr = FindObjectsOfType (typeof(BonusScript)) as BonusScript[];
+
+		if (arr.Length == 0) {
+			transform.Rotate (0, 120 * Time.deltaTime, 0);
+			return;
+		}
+
+		if (state == 1) {
+			float d = 999999.9f;
+			for (int i = 0; i < arr.Length; i++) {
+				float s = Vector3.Distance (transform.position, arr[i].gameObject.transform.position);
+				if (s < d) {
+					d = s;
+					bonus = arr [i].gameObject;
+				}
+			}
+			state = 2;
+			return;
+		}
+
+		if (state == 2) {
+			float speed = 12.0f;
+			transform.position = Vector3.MoveTowards (transform.position, bonus.transform.position, speed * Time.deltaTime);
+			float s = Vector3.Distance (transform.position, bonus.transform.position);
+			if (s < 2.3f) {
+				state = 1;
+				Destroy (bonus);
+				return;
+			}
+		}
+	}
+}
+
+
