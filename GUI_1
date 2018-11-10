@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class guiscript : MonoBehaviour {
+	private int count = 0;
+
+	void OnGUI() {
+		if (GUI.Button (new Rect (30, 50, 150, 50), "Моя кнопка")) {
+			count++;
+		}
+
+		GUI.Box(new Rect(200, 70, 40, 50), count + "");
+	}
+
+	void Start () {
+		
+	}
+
+	void Update () {
+		
+	}
+}
+
+
