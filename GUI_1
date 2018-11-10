@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class guiscript : MonoBehaviour {
 	private int count = 0;
+	private GameObject door;
+	private bool animation = false;
+	private float s = 0.0f;
+	private float speed = 2.0f;
 
 	void OnGUI() {
 		if (GUI.Button (new Rect (30, 50, 150, 50), "Моя кнопка")) {
@@ -11,15 +15,33 @@ public class guiscript : MonoBehaviour {
 		}
 
 		GUI.Box(new Rect(200, 70, 40, 50), count + "");
+
+		if (GUI.Button (new Rect (300, 50, 150, 50), "Анимация")) {
+			animation = true;
+		}
 	}
 
 	void Start () {
-		
+		door = GameObject.Find ("Door");
+	}
+
+	float module(float a) {
+		if (a < 0.0f) {
+			a = a * (-1);
+		}
+		return a;
 	}
 
 	void Update () {
-		
+		if (animation == true) {
+			door.transform.Translate (0, speed * Time.deltaTime, 0);
+			s += module(speed * Time.deltaTime);
+			if (s > 3.0f) {
+				animation = false;
+				s = 0.0f;
+				speed = speed * (-1);
+			}
+		}
 	}
 }
-
 
