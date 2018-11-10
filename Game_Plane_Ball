@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class gamescript : MonoBehaviour {
+	private GameObject plaine;
+	private GameObject sphere;
+
+	void Start () {
+		plaine = GameObject.Find ("Plaine");
+		sphere = GameObject.Find ("Sphere");
+	}
+
+	void Update() {
+		if (sphere.transform.position.y < -10.0f) {
+			sphere.transform.position = new Vector3 (-1.3f, 10.0f, -5.65f);
+		}
+	}
+
+	void OnGUI() {
+		if(GUI.Button(new Rect(50, 50, 100, 50),  "Pos 1")) {
+			plaine.transform.Rotate (-10, 0, 0);
+		}
+
+		if(GUI.Button(new Rect(50, 150, 100, 50), "Pos 2")) {
+			plaine.transform.Rotate (10, 0, 0);
+		}
+
+		if(GUI.Button(new Rect(50, 250, 100, 50), "Pos 3")) {
+			plaine.transform.Rotate (0, 0, -10);
+		}
+
+		if(GUI.Button(new Rect(50, 350, 100, 50), "Pos 4")) {
+			plaine.transform.Rotate (0, 0, 10);
+		}
+	}
+}
+
