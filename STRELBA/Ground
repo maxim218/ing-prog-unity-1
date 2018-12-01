@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundScript : MonoBehaviour {
+	void OnGUI() {
+		if (GUI.Button (new Rect (30, 30, 100, 50), "CLEAR")) {
+			PlayerPrefs.DeleteAll ();
+		}
+	}
+
+	void Start () {
+		int x1 = PlayerPrefs.GetInt ("x1", 1);
+		int x2 = PlayerPrefs.GetInt ("x2", 1);
+		int x3 = PlayerPrefs.GetInt ("x3", 1);
+
+		if (x1 == 0) {
+			Destroy (GameObject.Find ("e1"));
+		}
+
+		if (x2 == 0) {
+			Destroy (GameObject.Find ("e2"));
+		}
+
+		if (x3 == 0) {
+			Destroy (GameObject.Find ("e3"));
+		}
+	}
+}
+

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour {
 	public int live;
 	public GameObject blood;
+	public string s;
 
 	void OnMouseDown() {
 		live -= 1;
@@ -12,6 +13,7 @@ public class EnemyScript : MonoBehaviour {
 		if (live <= 0) {
 			GameObject b = Instantiate (blood) as GameObject;
 			b.transform.position = transform.position;
+			PlayerPrefs.SetInt (s, 0);
 			Destroy (gameObject);
 		}
 	}
