@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BloodScript : MonoBehaviour {
+	private IEnumerator dead() {
+		yield return new WaitForSeconds (3);
+		Destroy (gameObject);
+	}
+
+	void Start () {
+		StartCoroutine (dead());
+	}
+}
+

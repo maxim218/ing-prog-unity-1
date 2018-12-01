@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyScript : MonoBehaviour {
+	public int live;
+	public GameObject blood;
+
+	void OnMouseDown() {
+		live -= 1;
+		Debug.Log ("Live: " + live);
+		if (live <= 0) {
+			GameObject b = Instantiate (blood) as GameObject;
+			b.transform.position = transform.position;
+			Destroy (gameObject);
+		}
+	}
+
+	void Start () {
+		
+	}
+
+	void Update () {
+		
+	}
+}
+
