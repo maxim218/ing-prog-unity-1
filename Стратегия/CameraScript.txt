@@ -1,0 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraScript : MonoBehaviour
+{
+    private GameObject k1, k2, k3;
+    public Camera camera;
+    private GameObject currentObj;
+    
+    void Start()
+    {
+        k1 = GameObject.Find("K1");
+        k2 = GameObject.Find("K2");
+        k3 = GameObject.Find("K3");
+        currentObj = k1;
+    }
+
+    void clickElement()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                Vector3 pos = hit.point;
+                GameObject hitObj = hit.transform.gameObject;
+                if (hitObj == k1) currentObj = k1;
+                if (hitObj == k2) currentObj = k2;
+                if (hitObj == k3) currentObj = k3;
+                if (hitObj == GameObject.Find("GROUND"))
+                {
+                    PersonScript scr = currentObj.GetComponent<PersonScript>();
+                    if(scr)
+                    {
+                        float xxx = pos.x;
+                        float yyy = pos.y;
+                        float zzz = pos.z;
+                        scr.setGoal(xxx, yyy, zzz);
+                    }
+                }
+            }
+        }
+    }
+    
+    void Update()
+    {
+        clickElement();
+    }
+}

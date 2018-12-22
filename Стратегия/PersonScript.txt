@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PersonScript : MonoBehaviour
+{
+    private Vector3 goal;
+
+    void Start()
+    {
+        goal = transform.position;
+    }
+
+    public void setGoal(float xx, float yy, float zz)
+    {
+        goal.x = xx;
+        goal.y = yy;
+        goal.z = zz;
+    }
+
+    void Update()
+    {
+        float d = Vector3.Distance(goal, transform.position);
+        if (d > 1.0)
+        {
+            goal.y = transform.position.y;
+            Vector3 pos = goal - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(pos);
+            transform.rotation = rotation;
+            float speed = 4.0f;
+            transform.Translate(0, 0, speed * Time.deltaTime);
+        }
+    }
+}
