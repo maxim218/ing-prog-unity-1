@@ -30,11 +30,34 @@ public class MyScript : MonoBehaviour
 			}
 		}
 	}
+	
+	int minKrat(int a, int b) {
+		for(int i = a; i <= a * b; i++) {
+			if(i % a == 0 && i % b == 0) {
+				return i;
+			}
+		}
+		return 0;
+	}
 
     void Start() {
+		int ans = 0;
+		
+		ans = minKrat(10, 15);
+		Debug.Log("Ans: " + ans);
+		
+		ans = minKrat(12, 8);
+		Debug.Log("Ans: " + ans);
+		
+		ans = minKrat(3, 7);
+		Debug.Log("Ans: " + ans);
+		
         printSimpleNumbers();
     }
 
 }
+
+
+
 
 
