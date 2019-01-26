@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MyScript : MonoBehaviour
+{	
+	bool isSimple(int n) {
+		if(n == 1) {
+			return false;
+		}
+		
+		if(n <= 3) {
+			return true;
+		}
+		
+		for(int i = 2; i < n; i++) {
+			if(n % i == 0) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	void printSimpleNumbers() {
+		for(int i = 1; i <= 100; i++) {
+			bool w = isSimple(i);
+			if(w == true) {
+				Debug.Log(i);
+			}
+		}
+	}
+
+    void Start() {
+        printSimpleNumbers();
+    }
+
+}
+
+
