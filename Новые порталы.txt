@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PortalControl : MonoBehaviour
+{
+    GameObject portalFirst, portalSecond;
+    float myTime = 0.0f;
+
+    void Start()
+    {
+        portalFirst = GameObject.Find("P1");
+        portalSecond = GameObject.Find("P2");
+        myTime = 0.0f;
+    }
+
+    void Update()
+    {
+        myTime += Time.deltaTime;
+
+        if (myTime >= 4.0f)
+        {
+            float d = Vector3.Distance(transform.position, portalFirst.transform.position);
+            if (d < 2.5f)
+            {
+                transform.position = portalSecond.transform.position;
+                transform.Translate(0, 2.0f, 0);
+                myTime = 0.0f;
+                return;
+            }
+
+            float k = Vector3.Distance(transform.position, portalSecond.transform.position);
+            if (k < 2.5f)
+            {
+                transform.position = portalFirst.transform.position;
+                transform.Translate(0, 2.0f, 0);
+                myTime = 0.0f;
+                return;
+            }
+        }
+    }
+}
