@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainScript : MonoBehaviour
+{
+    int[] xArr;
+    int[] yArr;
+    public int n;
+
+    void Start()
+    {
+        xArr = new int[n];
+        yArr = new int[n];
+
+        for (int i = 0; i < n / 2; i++)
+        {
+            xArr[i] = i * 60 + 10;
+            yArr[i] = 15;
+        }
+
+        for(int i = n / 2; i < n; i++)
+        {
+            xArr[i] = ((i - n / 2) * 60) + 10;
+            yArr[i] = 75;
+        }
+    }
+
+    void OnGUI()
+    {
+        for(int i = 0; i < n; i++)
+        {
+            int xxx = xArr[i];
+            int yyy = yArr[i];
+            if(GUI.Button(new Rect(xxx, yyy, 50, 30), "ABC"))
+            {
+
+            }
+        }
+    }
+}
