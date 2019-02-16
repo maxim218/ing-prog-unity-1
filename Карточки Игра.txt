@@ -7,13 +7,41 @@ public class MainScript : MonoBehaviour
     int[] xArr;
     int[] yArr;
     int[] kArr;
+    bool[] openArr;
     public int n;
+
+    float closeTimeWait = 0.0f;
+    public int closeSecondsMax;
+
+    void closeAllCards()
+    {
+        for (int i = 0; i < n; i++) openArr[i] = false;
+        Debug.Log("CLOSE ALL");
+    }
+
+    void Update()
+    {
+        if(closeTimeWait < closeSecondsMax)
+        {
+            closeTimeWait += Time.deltaTime;
+            if (closeTimeWait >= closeSecondsMax)
+            {
+                closeAllCards();
+            }
+        }
+    }
 
     void Start()
     {
         xArr = new int[n];
         yArr = new int[n];
         kArr = new int[n];
+        openArr = new bool[n];
+
+        for(int i = 0; i < n; i++)
+        {
+            openArr[i] = true;
+        }
 
         for (int i = 0; i < n / 2; i++)
         {
@@ -51,7 +79,15 @@ public class MainScript : MonoBehaviour
             int xxx = xArr[i];
             int yyy = yArr[i];
             int kkk = kArr[i];
-            if(GUI.Button(new Rect(xxx, yyy, 50, 30), kkk + ""))
+
+            string cardMessage = " ";
+
+            if(openArr[i] == true)
+            {
+                cardMessage = kkk + "";
+            }
+
+            if(GUI.Button(new Rect(xxx, yyy, 50, 30), cardMessage))
             {
 
             }
