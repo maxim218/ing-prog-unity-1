@@ -83,8 +83,12 @@ public class MainScript : MonoBehaviour
 
     float waitTime = 0.0f;
 
+    int score = 0;
+      
     void OnGUI()
     {
+        GUI.Box(new Rect(10, 130, 200, 50), "Score: " + score); 
+
         if(waitTime <= 0 && firstCard > -1 && secondCard > -1)
         {
             openArr[firstCard] = false;
@@ -122,6 +126,7 @@ public class MainScript : MonoBehaviour
 
                     if (kArr[firstCard] == kArr[secondCard])
                     {
+                        score += 1;
                         openArr[firstCard] = true;
                         openArr[secondCard] = true;
                         firstCard = -1;
