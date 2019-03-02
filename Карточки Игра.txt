@@ -21,7 +21,12 @@ public class MainScript : MonoBehaviour
 
     void Update()
     {
-        if(closeTimeWait < closeSecondsMax)
+        if(waitTime >= 0.0f)
+        {
+            waitTime -= Time.deltaTime;
+        }
+
+        if (closeTimeWait < closeSecondsMax)
         {
             closeTimeWait += Time.deltaTime;
             if (closeTimeWait >= closeSecondsMax)
@@ -38,7 +43,7 @@ public class MainScript : MonoBehaviour
         kArr = new int[n];
         openArr = new bool[n];
 
-        for(int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
             openArr[i] = true;
         }
@@ -50,19 +55,19 @@ public class MainScript : MonoBehaviour
             kArr[i] = i;
         }
 
-        for(int i = n / 2; i < n; i++)
+        for (int i = n / 2; i < n; i++)
         {
             xArr[i] = ((i - n / 2) * 60) + 10;
             yArr[i] = 75;
             kArr[i] = i - n / 2;
-        }   
-
-        for(int i = 0; i < n; i++)
+        }
+        
+        for (int i = 0; i < n; i++)
         {
-            for(int j = 0; j < n; j++)
+            for (int j = 0; j < n; j++)
             {
                 int r = Random.Range(0, 1000);
-                if(r % 2 == 0)
+                if (r % 2 == 0)
                 {
                     int x = kArr[i];
                     kArr[i] = kArr[j];
@@ -70,11 +75,25 @@ public class MainScript : MonoBehaviour
                 }
             }
         }
+        
     }
+
+    int firstCard = -1;
+    int secondCard = -1;
+
+    float waitTime = 0.0f;
 
     void OnGUI()
     {
-        for(int i = 0; i < n; i++)
+        if(waitTime <= 0 && firstCard > -1 && secondCard > -1)
+        {
+            openArr[firstCard] = false;
+            openArr[secondCard] = false;
+            firstCard = -1;
+            secondCard = -1;
+        }
+
+        for (int i = 0; i < n; i++)
         {
             int xxx = xArr[i];
             int yyy = yArr[i];
@@ -82,14 +101,42 @@ public class MainScript : MonoBehaviour
 
             string cardMessage = " ";
 
-            if(openArr[i] == true)
+            if (openArr[i] == true)
             {
                 cardMessage = kkk + "";
             }
 
-            if(GUI.Button(new Rect(xxx, yyy, 50, 30), cardMessage))
-            {
+            if (GUI.Button(new Rect(xxx, yyy, 50, 30), cardMessage))
+            {                     
+                if(firstCard == -1)
+                {
+                    firstCard = i;
+                    return;
+                }
 
+                if(secondCard == -1)
+                {
+                    secondCard = i;
+                    openArr[firstCard] = true;
+                    openArr[secondCard] = true;
+
+                    if (kArr[firstCard] == kArr[secondCard])
+                    {
+                        openArr[firstCard] = true;
+                        openArr[secondCard] = true;
+                        firstCard = -1;
+                        secondCard = -1;
+                        return;
+                    }
+                    
+                    if (kArr[firstCard] != kArr[secondCard])
+                    {
+                        openArr[firstCard] = true;
+                        openArr[secondCard] = true;
+                        waitTime = 3.5f;
+                        return;
+                    }
+                }
             }
         }
     }
