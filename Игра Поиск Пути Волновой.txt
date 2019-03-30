@@ -29,11 +29,34 @@ public class MainScript : MonoBehaviour
         arr[4, 5] = 999;
     }
 
+    void createWave()
+    {
+        arr[1, 1] = 0;
+
+        int waveSize = 0;
+
+        for (waveSize = 0; waveSize <= n * n; waveSize++)
+        {
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[i, j] == waveSize)
+                    {
+                        if (arr[i - 1, j] == -1) arr[i - 1, j] = waveSize + 1;
+                        if (arr[i, j + 1] == -1) arr[i, j + 1] = waveSize + 1;
+                        if (arr[i, j - 1] == -1) arr[i, j - 1] = waveSize + 1;
+                        if (arr[i + 1, j] == -1) arr[i + 1, j] = waveSize + 1;
+                    }
+                }
+        }
+    }
+
     void Start()
     {
         arr = new int[n, n];
         initArr();
         createWalls();
+        createWave();
     }
 
     void OnGUI()
