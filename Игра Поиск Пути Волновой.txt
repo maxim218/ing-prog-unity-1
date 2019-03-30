@@ -14,10 +14,26 @@ public class MainScript : MonoBehaviour
                 arr[i, j] = -1;
     }
 
+    void createWalls()
+    {
+        for (int i = 0; i < n; i++)
+        {
+            arr[0, i] = 999;
+            arr[n - 1, i] = 999;
+            arr[i, 0] = 999;
+            arr[i, n - 1] = 999;
+        }
+
+        for (int i = 0; i < 5; i++) arr[i, 3] = 999;
+        arr[4, 4] = 999;
+        arr[4, 5] = 999;
+    }
+
     void Start()
     {
         arr = new int[n, n];
         initArr();
+        createWalls();
     }
 
     void OnGUI()
@@ -26,8 +42,8 @@ public class MainScript : MonoBehaviour
             for (int j = 0; j < n; j++)
             {
                 int value = arr[i, j];
-                int xx = i * 40;
-                int yy = j * 40;
+                int xx = j * 40;
+                int yy = i * 40;
                 GUI.Button(new Rect(xx, yy, 40, 40), value + "");
             }
     }
