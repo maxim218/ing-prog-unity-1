@@ -51,12 +51,35 @@ public class MainScript : MonoBehaviour
         }
     }
 
+    void getBackWay()
+    {
+        int nowY = 2;
+        int nowX = 4;
+
+        while(arr[nowY, nowX] != 0)
+        {
+            Debug.Log("Y: " + nowY + "   X: " + nowX);
+
+            if (arr[nowY - 1, nowX] < arr[nowY, nowX])
+                nowY--;
+            else if (arr[nowY + 1, nowX] < arr[nowY, nowX])
+                nowY++;
+            else if (arr[nowY, nowX - 1] < arr[nowY, nowX])
+                nowX--;
+            else if (arr[nowY, nowX + 1] < arr[nowY, nowX])
+                nowX++;
+        }
+
+        Debug.Log("Y: " + nowY + "   X: " + nowX);
+    }
+
     void Start()
     {
         arr = new int[n, n];
         initArr();
         createWalls();
         createWave();
+        getBackWay();
     }
 
     void OnGUI()
@@ -71,5 +94,3 @@ public class MainScript : MonoBehaviour
             }
     }
 }
-
-
