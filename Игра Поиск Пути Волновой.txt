@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct pos
+{
+    public int xx, yy;
+};
+
 public class MainScript : MonoBehaviour
 {
     int n = 8;
@@ -51,6 +56,9 @@ public class MainScript : MonoBehaviour
         }
     }
 
+    pos[] posArr;
+    int k = 0;
+
     void getBackWay()
     {
         int nowY = 2;
@@ -59,6 +67,9 @@ public class MainScript : MonoBehaviour
         while(arr[nowY, nowX] != 0)
         {
             Debug.Log("Y: " + nowY + "   X: " + nowX);
+            posArr[k].yy = nowY;
+            posArr[k].xx = nowX;       
+            k++;
 
             if (arr[nowY - 1, nowX] < arr[nowY, nowX])
                 nowY--;
@@ -71,6 +82,18 @@ public class MainScript : MonoBehaviour
         }
 
         Debug.Log("Y: " + nowY + "   X: " + nowX);
+        posArr[k].yy = nowY;
+        posArr[k].xx = nowX;
+        k++;
+    }
+
+    void make3D()
+    {
+        for(int i = 0; i < k; i++)
+        {
+            GameObject sss = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            sss.transform.position = new Vector3(posArr[i].xx, posArr[i].yy, 0);
+        }
     }
 
     void Start()
@@ -79,7 +102,9 @@ public class MainScript : MonoBehaviour
         initArr();
         createWalls();
         createWave();
+        posArr = new pos[n * n];
         getBackWay();
+        make3D();
     }
 
     void OnGUI()
@@ -94,3 +119,5 @@ public class MainScript : MonoBehaviour
             }
     }
 }
+
+
