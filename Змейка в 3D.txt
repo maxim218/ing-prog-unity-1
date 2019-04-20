@@ -40,6 +40,7 @@ public class MainScript : MonoBehaviour
 
     void controlKeys()
     {
+
         if (Input.GetKeyDown(KeyCode.W)) w = true;
         if (Input.GetKeyDown(KeyCode.A)) a = true;
         if (Input.GetKeyDown(KeyCode.S)) s = true;
@@ -49,19 +50,26 @@ public class MainScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A)) a = false;
         if (Input.GetKeyUp(KeyCode.S)) s = false;
         if (Input.GetKeyUp(KeyCode.D)) d = false;
+
+        if (w) a = s = d = false;
+        if (s) w = a = d = false;
+        if (a) d = w = s = false;
+        if (d) w = s = a = false;
     }
 
     void moveSnake()
     {
-        for(int i = n - 1; i >= 1; i--)
-        {
-            GameObject now = arr[i];
-            GameObject prev = arr[i - 1];
-            now.transform.position = new Vector3(
-                prev.transform.position.x,
-                prev.transform.position.y,
-                prev.transform.position.z
-            );
+        if (w || s || a || d) {
+            for (int i = n - 1; i >= 1; i--)
+            {
+                GameObject now = arr[i];
+                GameObject prev = arr[i - 1];
+                now.transform.position = new Vector3(
+                    prev.transform.position.x,
+                    prev.transform.position.y,
+                    prev.transform.position.z
+                );
+            }
         }
 
         GameObject head = arr[0];
