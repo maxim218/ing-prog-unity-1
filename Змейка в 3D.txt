@@ -7,6 +7,8 @@ public class MainScript : MonoBehaviour
     GameObject[] arr;
     int n;
 
+    bool w, a, s, d;
+
     void addToSnake(float xx, float zz)
     {
         GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -30,11 +32,51 @@ public class MainScript : MonoBehaviour
         arr = new GameObject[100];
         n = 0;
         createStartSnake();
+        w = false;
+        a = false;
+        s = false;
+        d = false;
     }
 
+    void controlKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.W)) w = true;
+        if (Input.GetKeyDown(KeyCode.A)) a = true;
+        if (Input.GetKeyDown(KeyCode.S)) s = true;
+        if (Input.GetKeyDown(KeyCode.D)) d = true;
+
+        if (Input.GetKeyUp(KeyCode.W)) w = false;
+        if (Input.GetKeyUp(KeyCode.A)) a = false;
+        if (Input.GetKeyUp(KeyCode.S)) s = false;
+        if (Input.GetKeyUp(KeyCode.D)) d = false;
+    }
+
+    void moveSnake()
+    {
+        for(int i = n - 1; i >= 1; i--)
+        {
+            GameObject now = arr[i];
+            GameObject prev = arr[i - 1];
+            now.transform.position = new Vector3(
+                prev.transform.position.x,
+                prev.transform.position.y,
+                prev.transform.position.z
+            );
+        }
+
+        GameObject head = arr[0];
+
+        float speed = 2.0f;
+
+        if (w) head.transform.Translate(speed * Time.deltaTime, 0, 0);
+        if (s) head.transform.Translate(-speed * Time.deltaTime, 0, 0);
+        if (a) head.transform.Translate(0, 0, speed * Time.deltaTime);
+        if (d) head.transform.Translate(0, 0, -speed * Time.deltaTime);
+    }
 
     void Update()
     {
-        
+        controlKeys();
+        moveSnake();
     }
 }
