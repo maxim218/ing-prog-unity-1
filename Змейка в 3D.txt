@@ -66,17 +66,24 @@ public class MainScript : MonoBehaviour
 
         GameObject head = arr[0];
 
-        float speed = 2.0f;
-
-        if (w) head.transform.Translate(speed * Time.deltaTime, 0, 0);
-        if (s) head.transform.Translate(-speed * Time.deltaTime, 0, 0);
-        if (a) head.transform.Translate(0, 0, speed * Time.deltaTime);
-        if (d) head.transform.Translate(0, 0, -speed * Time.deltaTime);
+        if (w) head.transform.Translate(1, 0, 0);
+        if (s) head.transform.Translate(-1, 0, 0);
+        if (a) head.transform.Translate(0, 0, 1);
+        if (d) head.transform.Translate(0, 0, -1);
     }
+
+    float nowTime = 0.0f;
 
     void Update()
     {
         controlKeys();
-        moveSnake();
+
+        nowTime += Time.deltaTime;
+
+        if (nowTime >= 0.1f)
+        {
+            moveSnake();
+            nowTime = 0.0f;
+        }
     }
 }
