@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MainScript : MonoBehaviour
+{
+    GameObject[] arr;
+    int n;
+
+    void addToSnake(float xx, float zz)
+    {
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = new Vector3(xx, 1.5f, zz);
+        arr[n] = sphere;
+        n++;
+    }
+
+    void createStartSnake()
+    {
+        float startZ = 0.0f;
+        for(int i = 1; i <= 5; i++)
+        {
+            addToSnake(0.0f, startZ);
+            startZ++;
+        }
+    }
+    
+    void Start()
+    {
+        arr = new GameObject[100];
+        n = 0;
+        createStartSnake();
+    }
+
+
+    void Update()
+    {
+        
+    }
+}
