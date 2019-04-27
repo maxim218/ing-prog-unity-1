@@ -37,6 +37,33 @@ public class MainScript : MonoBehaviour
         {
             createCube(i, 1.0f, 0, 3);
             createCube(i, 2.0f, 0, 3);
+
+            createCube(i, 1.0f, n - 1, 3);
+            createCube(i, 2.0f, n - 1, 3);
+        }
+
+        for(int i = 1; i <= n - 2; i++)
+        {
+            createCube(0, 1.0f, i, 3);
+            createCube(0, 2.0f, i, 3);
+
+            createCube(n - 1, 1.0f, i, 3);
+            createCube(n - 1, 2.0f, i, 3);
+        }
+
+        for(int i = 4; i < n - 6; i++)
+        {
+            createCube(5, 1.0f, i, 3);
+            createCube(5, 2.0f, i, 3);
+
+            createCube(12, 1.0f, i, 3);
+            createCube(12, 2.0f, i, 3);
+
+            createCube(18, 1.0f, i, 3);
+            createCube(18, 2.0f, i, 3);
+
+            createCube(25, 1.0f, i, 3);
+            createCube(25, 2.0f, i, 3);
         }
     }
 
