@@ -5,6 +5,7 @@ using UnityEngine;
 public class ManScript : MonoBehaviour
 {
     public GameObject e1, e2, e3;
+    public GameObject Bullet;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class ManScript : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(ppp);
         transform.rotation = rot;
         // fire bullet    
-        GameObject s = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        GameObject s = Instantiate(Bullet) as GameObject;
         s.transform.position = transform.TransformPoint(Vector3.forward * 3.0f);
         Vector3 pos = transform.position - s.transform.position;
         Quaternion rotation = Quaternion.LookRotation(pos);
